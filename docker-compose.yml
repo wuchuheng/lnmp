@@ -26,3 +26,17 @@ services:
       - ./nginx/logs:/etc/nginx/logs:rw # 2.3.3  nginx网站访问日志记录
     restart: always
     container_name: nginx
+    depends_on:
+      - "php53" # 依赖于php53
+
+  php53:
+    image: leleos/php-fpm:5.3
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./wwwroot:/wwwroot:rw
+    restart: always
+    container_name: php53
+    depends_on:
+      - "mysql" # 依赖于 nginx
+
