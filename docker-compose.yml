@@ -13,6 +13,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}" # 密码
     container_name: mysql # 别名
+    networks:
+      - default # 2.5 加入默认网络
 
   nginx:
     image: nginx:1.19.2
@@ -24,10 +26,13 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:rw # 2 nginx主配置文件
       - ./nginx/conf.d:/etc/nginx/conf.d:rw # 2 nginx的配置目录，nginx会加载整个合法命名的目录下所有配置
       - ./nginx/logs:/etc/nginx/logs:rw # 2.3.3  nginx网站访问日志记录
+      - ./nginx/fastcgi_params:/etc/nginx/fastcgi_params:rw # 2.5.1 动态网站配置
     restart: always
     container_name: nginx
     depends_on:
       - "php53" # 依赖于php53
+    networks:
+      - default # 2.5 加入默认网络
 
   php53:
     image: leleos/php-fpm:5.3
@@ -39,4 +44,9 @@ services:
     container_name: php53
     depends_on:
       - "mysql" # 依赖于 nginx
+    networks:
+      - default # 2.5 加入默认网络
 
+# 2.5 定义默认网络
+networks:
+  default:
