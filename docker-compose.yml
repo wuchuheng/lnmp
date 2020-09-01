@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  mysql: # 服务名
+    image: mysql:8.0 # 镜像和版本
+    ports:
+      - "${MYSQLPORT}:3306" # 本地端口:容器内部端口
+    volumes:
+      - ./mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro # 本地配置文件挂载
+      - ./mysql/data:/var/lib/mysql/:rw # 把源数据保存到外面来
+    restart: always # 开机启动
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}" # 密码
+    container_name: mysql # 别名
