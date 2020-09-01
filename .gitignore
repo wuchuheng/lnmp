@@ -7,3 +7,7 @@
 #忽略mysql的数据存放目录下的文件，但保持这个目录
 /mysql/data/*
 !/mysql/data/.gitkeep
+
+#保持nginx/logs目录，不跟踪生成的日志文件
+/nginx/logs/*
+/nginx/logs/.gitkeep
