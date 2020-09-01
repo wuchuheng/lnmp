@@ -1,0 +1,9 @@
+/.DS_Store
+/.idea
+
+# 环境变量文件
+.env
+
+#忽略mysql的数据存放目录下的文件，但保持这个目录
+/mysql/data/*
+!/mysql/data/.gitkeep
